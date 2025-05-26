@@ -2,160 +2,177 @@ import { useNavigation, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 
 import { Colors } from '@/constants/Colors';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+    ActivityIndicator,
+    ScrollView,
+    StyleSheet, Text, TextInput,
+    ToastAndroid, TouchableOpacity, View
+} from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-// import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from './../../../configs/FirebaseConfig';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from './../../../configs/FirebaseConfig';
 
 
 export default function SignIn() {
-  const navigation = useNavigation();
+    const navigation = useNavigation();
 
-  const router=useRouter();
+    const router = useRouter();
 
-  const [email,setEmail]=useState();
-  const [password,setPassword]=useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
-  useEffect(()=> {
-    navigation.setOptions({
-      headerShown: false
-    })
-  }, [])
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerShown: false
+        })
+    }, [])
 
 
 
-//   const onSignIn = () => {
+    const onSignIn = () => {
 
-//     if(!email && !password) 
-//     {
-//       ToastAndroid.show("Please Enter Email & Password", ToastAndroid.LONG)  
-//       return;
-//     }
+        if (!email && !password) {
+            ToastAndroid.show("Please Enter Email & Password", ToastAndroid.SHORT)
+            return;
+        }
 
-//     signInWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     console.log(user);
-    
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     console.log(errorMessage,error.code);
-//     if(errorCode=='auth/inva;id-credentials'){
-//       ToastAndroid.show('Invalid Credentials', ToastAndroid.LONG)
-//     }
-//   });
-//   }
-  
-  
-  return (
-    <View style={{
-      padding: 25,
-      paddingTop: 40,
-      backgroundColor: Colors.WHITE,
-      height: '100%'
-    }}>
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user);
 
-      {/* Back Button */}
-      <TouchableOpacity onPress={() => router.push('/')}>
-      <Ionicons name="arrow-back" size={24} color="black" />
-      </TouchableOpacity>
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage, error.code);
+                if (errorCode=='auth/invalid-credential') {
+                    ToastAndroid.show('Invalid Credentials', ToastAndroid.LONG)
+                }
+            });
+    }
 
-      <Text style={{
-        fontFamily: 'outfit-bold',
-        fontSize: 30,
-        marginTop: 30
-      }}>Let&apos;s Sign You In</Text>
-      <Text style={{
-        fontFamily: 'outfit',
-        fontSize: 30,
-        color:Colors.GRAY,
-        marginTop: 20
-      }}>Welcome Back</Text>
-      <Text style={{
-        fontFamily: 'outfit',
-        fontSize: 30,
-        color:Colors.GRAY,
-        marginTop: 10
-      }}>You&apos;ve been missed</Text>
 
-      {/* Email */}
-      <View style={{
-        marginTop: 50
-      }}>
-        <Text style={{
-          fontFamily: 'outfit'
-        }}>Email</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={(value)=>setEmail(value)}
-          placeholder='Enter Email' /> 
-      </View>
-
-      {/* Password */}
-      <View style={{
-        marginTop: 20
-      }}>
-        <Text style={{
-          fontFamily: 'outfit'
-        }}>Password</Text>
-        <TextInput
-        secureTextEntry={true}
-          style={styles.input}
-          onChangeText={(value)=>setPassword(value)}
-          placeholder='Enter password' /> 
-      </View>
-
-      {/* Sign In Button */}
-      <TouchableOpacity 
-    //   onPress={onSignIn} 
-      style={{
-        padding: 20,
-        backgroundColor: Colors.PRIMARY,
-        borderRadius: 15,
-        marginTop: 50
-      }}>
-        <Text style={{
-          color:Colors.WHITE,
-          textAlign: 'center'
+    return (
+        <ScrollView>
+        <View style={{
+            padding: 25,
+            paddingTop: 40,
+            backgroundColor: Colors.WHITE,
+            height: '100%'
         }}>
-          Sign In
-        </Text>
-      </TouchableOpacity>
 
-      {/* Create Account Button */}
-      <TouchableOpacity
-        onPress={()=>router.replace('auth/sign-up')}
-      style={{
-        padding: 20,
-        backgroundColor: Colors.WHITE,
-        borderRadius: 15,
-        marginTop: 20,
-        borderWidth: 1
-      }}>
-        <Text style={{
-          color:Colors.PRIMARY,
-          textAlign: 'center'
-        }}>
-           Create Account
-        </Text>
-      </TouchableOpacity>
-      
-    </View>
-  )
+            {/* Back Button */}
+            <TouchableOpacity onPress={() => router.push('/')}>
+                <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
+
+            <Text style={{
+                fontFamily: 'outfit-bold',
+                fontSize: 30,
+                marginTop: 30
+            }}>Let&apos;s Sign You In</Text>
+            <Text style={{
+                fontFamily: 'outfit',
+                fontSize: 30,
+                color: Colors.GRAY,
+                marginTop: 20
+            }}>Welcome Back</Text>
+            <Text style={{
+                fontFamily: 'outfit',
+                fontSize: 30,
+                color: Colors.GRAY,
+                marginTop: 10
+            }}>You&apos;ve been missed</Text>
+
+            {/* Email */}
+            <View style={{
+                marginTop: 50
+            }}>
+                <Text style={{
+                    fontFamily: 'outfit'
+                }}>Email</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(value) => setEmail(value)}
+                    placeholder='Enter Email' />
+            </View>
+
+            {/* Password */}
+            <View style={{
+                marginTop: 20
+            }}>
+                <Text style={{
+                    fontFamily: 'outfit'
+                }}>Password</Text>
+                <TextInput
+                    secureTextEntry={true}
+                    style={styles.input}
+                    onChangeText={(value) => setPassword(value)}
+                    placeholder='Enter password' />
+            </View>
+
+            {/* Sign In Button */}
+            <TouchableOpacity
+                onPress={async () => {
+                    setLoading(true);
+                    await onSignIn(); // your sign-in logic here
+                    setLoading(false);
+                }}
+                disabled={loading}
+                style={{
+                    padding: 20,
+                    backgroundColor: loading ? Colors.GRAY : Colors.PRIMARY,
+                    borderRadius: 15,
+                    marginTop: 50,
+                    opacity: loading ? 0.7 : 1,
+                    alignItems: 'center',
+                }}
+            >
+                {loading ? (
+                    <ActivityIndicator color={Colors.WHITE} />
+                ) : (
+                    <Text style={{ color: Colors.WHITE, textAlign: 'center' }}>
+                        Sign In
+                    </Text>
+                )}
+            </TouchableOpacity>
+
+            {/* Create Account Button */}
+            <TouchableOpacity
+                onPress={() => router.replace('auth/sign-up')}
+                style={{
+                    padding: 20,
+                    backgroundColor: Colors.WHITE,
+                    borderRadius: 15,
+                    marginTop: 20,
+                    borderWidth: 1
+                }}>
+                <Text style={{
+                    color: Colors.PRIMARY,
+                    textAlign: 'center'
+                }}>
+                    Create Account
+                </Text>
+            </TouchableOpacity>
+
+        </View>
+        </ScrollView>
+    )
 }
 
 const styles = StyleSheet.create({
-  input:{
-    padding: 15,
-    borderWidth: 1,
-    borderRadius: 15,
-    borderColor: Colors.GRAY,
-    fontFamily: 'outfit'
-  }
+    input: {
+        padding: 15,
+        borderWidth: 1,
+        borderRadius: 15,
+        borderColor: Colors.GRAY,
+        fontFamily: 'outfit'
+    }
 })
