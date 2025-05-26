@@ -40,12 +40,14 @@ export default function SignIn() {
             return;
         }
 
+        setLoading(true)
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                router.replace('/mytrip')
                 console.log(user);
-
+                setLoading(false)
                 // ...
             })
             .catch((error) => {
@@ -55,6 +57,7 @@ export default function SignIn() {
                 if (errorCode=='auth/invalid-credential') {
                     ToastAndroid.show('Invalid Credentials', ToastAndroid.LONG)
                 }
+                setLoading(false)
             });
     }
 
