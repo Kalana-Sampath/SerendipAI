@@ -27,6 +27,14 @@ This command will move the starter code to the **app-example** directory and cre
 
 npm install firebase
 
+npx expo install @react-native-async-storage/async-storage
+
+npm i react-native-google-places-autocomplete
+
+
+
+video pause time - 1:48:12
+
 
 
 
