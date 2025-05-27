@@ -29,12 +29,29 @@ npm install firebase
 
 npx expo install @react-native-async-storage/async-storage
 
+## google map api and react native library
+
 npm i react-native-google-places-autocomplete
 
+## react native calender
+
+npm i react-native-calendar-picker
+
+npm install --save date-fns
+
+   # for resolve the error 
+npm install date-fns
+
+
+##
+npm i moment
 
 
 video pause time - 1:48:12
 
 
 
+#### for remove api keys 
+git rm --cached configs/FirebaseConfig.js
+git rm --cached .env
 

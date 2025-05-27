@@ -43,4 +43,5 @@ app-example
 .env.local
 
 # Ignore Firebase config
-configs/FirebaseConfig.js
+configs/FirebaseConfig.js 
+
