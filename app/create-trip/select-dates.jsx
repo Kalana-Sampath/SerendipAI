@@ -1,4 +1,4 @@
-import { useNavigation } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
@@ -16,6 +16,8 @@ export default function SelectDates() {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const {tripData,setTripData}=useContext(CreateTripContext)
+
+    const router=useRouter()
 
     useEffect(() => {
 
@@ -50,8 +52,10 @@ export default function SelectDates() {
             endDate:endDate,
             totalNoOfDays:totalNoOfDays+1
         })
+        router.push('/create-trip/select-budget')
     }
 
+    
 
 
     return (
@@ -89,7 +93,6 @@ export default function SelectDates() {
             </View>
 
             <TouchableOpacity
-                //   onPress={()=>router.push('/create-trip/select-dates')}
                 onPress={onDateSelectoinContinue}
                 style={{
                     padding: 15,
