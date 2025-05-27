@@ -1,5 +1,5 @@
 import { Colors } from '@/constants/Colors';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRouter } from 'expo-router';
 import { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import 'react-native-get-random-values';
@@ -10,6 +10,8 @@ export default function SearchPlace() {
 
   const navigation = useNavigation();
   const { tripData, setTripData } = useContext(CreateTripContext);
+  const router=useRouter();
+
 
   useEffect(() => {
     navigation.setOptions({
@@ -76,7 +78,10 @@ export default function SearchPlace() {
               photoRef:details?.photos[0]?.photo_reference,
               url:details?.url
             }
-          })
+          });
+
+          router.push('/create-trip/select-traveler');
+
         }}  
 
         onTimeout={() =>
