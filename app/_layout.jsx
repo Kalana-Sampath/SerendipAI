@@ -20,6 +20,7 @@ export default function RootLayout() {
       }}>
         {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
         <Stack.Screen name="(tabs)" />
+        {/* <Stack.Screen name="create-trip/generate-trip" /> */}
       </Stack>
     </CreateTripContext.Provider>
   )

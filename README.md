@@ -46,10 +46,21 @@ npm install date-fns
 ##
 npm i moment
 
+## Generate trip page packagse
+ npm install lottie-react-native lottie-ios --legacy-peer-deps
 
-video pause time - 2:56:38
+ ## Gemini Api Stup
+npm install @google/genai
 
 
+
+----------------------------------------------
+
+video pause time - 3:30:56
+
+
+
+--------------------------------------------------------------------------------------------------------
 
 #### for remove api keys 
 git rm --cached configs/FirebaseConfig.js

@@ -1,0 +1,46 @@
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI({
+  apiKey: 'AIzaSyD0UyUpjQXEYdEptUNb87mgeDE1ImjEQGE'
+});
+
+const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+const chatSession = model.startChat({
+  history: [
+
+  ],
+  generationConfig: {
+    responseMimeType: "application/json"
+  }
+});
+
+// export async function sendMessageToGemini(message) {
+//   const result = await chatSession.sendMessage(message);
+//   return result.response.text();
+// }
+
+
+
+// import { GoogleGenAI } from "@google/genai";
+
+// const ai = new GoogleGenAI({ apiKey: 'AIzaSyD0UyUpjQXEYdEptUNb87mgeDE1ImjEQGE'});
+
+
+//   export const chatSession = await ai.models.generateContent({
+//     model: "gemini-2.0-flash",
+//     contents: "Explain how AI works in a few words",
+//     generationConfig: {
+//       responseMimeType: "application/json"
+//     },
+//     history: [
+
+//     ]
+//   });
+
+//   const result = await chatSession.sendMessage("INSERT_INPUT_HEADER")
+
+//   console.log(result.response.text());
+
+
+

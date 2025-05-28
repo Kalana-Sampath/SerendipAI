@@ -44,4 +44,7 @@ app-example
 
 # Ignore Firebase config
 configs/FirebaseConfig.js 
+configs/AiModel.js
 
+# Readme file
+README.md 
