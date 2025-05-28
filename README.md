@@ -47,7 +47,7 @@ npm install date-fns
 npm i moment
 
 
-video pause time - 1:48:12
+video pause time - 2:56:38
 
 
 
