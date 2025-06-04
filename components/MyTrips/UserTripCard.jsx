@@ -6,6 +6,7 @@ export default function UserTripCard({ trip }) {
   const location = parsedTripData.locationInfo?.name;
   const startDate = parsedTripData.locationInfo?.startDate;
   const travelerTitle = parsedTripData.traveler?.title;
+  const photoRef = parsedTripData.locationInfo?.photoRef;
 
   return (
     <View
@@ -18,27 +19,32 @@ export default function UserTripCard({ trip }) {
         borderRadius: 10,
       }}
     >
-      {/* <Image
-        source={require('./../../assets/images/trip-a.jpg')}
-        style={{
-          width: 90,
-          height: 90,
-          borderRadius: 10,
-          marginRight: 10,
-        }}
-      /> */}
-      <Image source={{ uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=
-            ${parsedTripData.locationInfo?.photoRef}
-            &key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}` }} 
-            style={{
-              width: 90,
-              height: 90,
-              borderRadius: 10,
-              marginRight:10
-            }}
-            />
+      {photoRef ? (
+        <Image
+          source={{
+            uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photoRef}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
+          }}
+          style={{
+            width: 90,
+            height: 90,
+            borderRadius: 10,
+            marginRight: 10,
+          }}
+        />
+      ) : (
+        <Image
+          source={require('./../../assets/images/trip-a.jpg')}
+          style={{
+            width: 90,
+            height: 90,
+            borderRadius: 10,
+            marginRight: 10,
+          }}
+        />
+      )}
+
       <View>
-        <Text style={{ fontFamily: 'outfit-bold', fontSize:18 }}>{location}</Text>
+        <Text style={{ fontFamily: 'outfit-bold', fontSize: 18 }}>{location}</Text>
         <Text style={{ fontFamily: 'outfit', fontSize: 15, marginTop: 2 }}>
           {moment(startDate).format('DD MMM YYYY')}
         </Text>

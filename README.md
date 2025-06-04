@@ -70,3 +70,9 @@ video pause time - 3:30:56
 git rm --cached configs/FirebaseConfig.js
 git rm --cached .env
 
+
+
+-----------------------------------------------------
+
+ ## ********************
+latest pause time : 4:12:12

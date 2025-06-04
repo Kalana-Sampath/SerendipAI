@@ -4,17 +4,19 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import { LinearGradient } from 'expo-linear-gradient';
+
 export default function StartNewTripCard() {
 
-  const router=useRouter()
+  const router = useRouter()
 
   return (
     <View style={{
-        padding: 20,
-        marginTop: 50,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 23
+      padding: 20,
+      marginTop: 50,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 23
     }}>
       <Ionicons name="location-sharp" size={30} color="black" />
       <Text style={{
@@ -27,32 +29,47 @@ export default function StartNewTripCard() {
         fontSize: 20,
         fontFamily: 'outfit',
         textAlign: 'center',
-        color:Colors.GRAY
+        color: Colors.GRAY
       }}>
         Looks like its time to plan a new travel experience! Get Started below
       </Text>
 
       {/* Start a New trip Button */}
       <TouchableOpacity
-      onPress={()=>router.push('/create-trip/search-place')}
+        onPress={() => router.push('/create-trip/search-place')}
+        activeOpacity={0.7}
         style={{
-          
-
-            padding: 15,
-            backgroundColor:Colors.PRIMARY,
-            borderRadius: 15,
-            paddingHorizontal: 30
+          borderRadius: 15,
+          marginTop: 10,
+          width: 250,
+          height: 55,
         }}
       >
-        <Text style={{
-            color:Colors.WHITE,
-            fontFamily: 'outfit-medium',
-            fontSize: 17
-        }}>
+        <LinearGradient
+          colors={Colors.GRADIENT_PRIMARY}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={{
+            flex: 1,
+            borderRadius: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              color: Colors.WHITE,
+              fontFamily: 'outfit-medium',
+              fontSize: 17,
+            }}
+          >
             Start a new trip
-        </Text>
+          </Text>
+        </LinearGradient>
       </TouchableOpacity>
+
     </View>
   )
 }
+
 
