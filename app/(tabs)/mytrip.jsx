@@ -5,7 +5,7 @@ import StartNewTripCard from '../../components/MyTrips/StartNewTripCard';
 import { Colors } from './../../constants/Colors';
 
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import UserTripsList from '../../components/MyTrips/UserTripsList';
+import UserTripList from '../../components/MyTrips/UserTripList';
 import { auth, db } from './../../configs/FirebaseConfig';
 
 export default function MyTrip() {
@@ -30,14 +30,14 @@ export default function MyTrip() {
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
       setUserTrips(prev=>[...prev,doc.data()])
-    })
+    }) 
     setLoding(false)
   }
 
   return (
     <View style={{
-      padding: 25,
-      paddingTop: 55,
+      padding: 6,
+      paddingTop: 30,
       backgroundColor:Colors.WHITE,
       height: '100%'
     }}>
@@ -49,9 +49,10 @@ export default function MyTrip() {
         justifyContent: 'space-between',
       }}>
       <Text style={{
+        paddingLeft:20,
         fontFamily:'outfit-bold',
         fontSize: 35
-      }}>My Trip</Text>
+      }}>My Trips</Text>
       <Ionicons name="add-circle" size={50} color="black" />
     </View>
 
@@ -61,7 +62,7 @@ export default function MyTrip() {
       userTrips?.length==0?
       <StartNewTripCard/>
       :
-      <UserTripsList userTrips={userTrips}/>
+      <UserTripList userTrips={userTrips}/>
     }
     </View>
   )
