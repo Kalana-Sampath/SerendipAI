@@ -99,7 +99,7 @@ export default function UserTripsList({ userTrips }) {
 
         {/* Button */}
         <TouchableOpacity
-          onPress={() => router.push('/your-plan')}
+          onPress={() => router.push('/trip-details')}
           activeOpacity={0.7}
           style={{
             marginTop: 10,

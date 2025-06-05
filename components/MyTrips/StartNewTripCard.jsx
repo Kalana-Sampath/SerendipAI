@@ -60,7 +60,7 @@ export default function StartNewTripCard() {
             style={{
               color: Colors.WHITE,
               fontFamily: 'outfit-medium',
-              fontSize: 17,
+              fontSize: 19,
             }}
           >
             Start a new trip

@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRouter } from 'expo-router';
 import { useContext, useEffect, useState } from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
@@ -5,6 +6,7 @@ import OptionCard from './../../components/CreateTrip/OptionCard';
 import { Colors } from './../../constants/Colors';
 import { SelectTravelesList } from './../../constants/Options';
 import { CreateTripContext } from './../../context/CreateTripContext';
+
 
 export default function SelectTraveler() {
 
@@ -65,9 +67,11 @@ export default function SelectTraveler() {
           renderItem={({item,index})=>(
             <TouchableOpacity 
             onPress={()=>setSelectedTraveler(item)}
-            style={{
-              marginVertical: 10
-            }}>
+            tyle={{
+              marginVertical: 10,
+              
+            }}
+            >
              <OptionCard option={item} selectedOption={selectedTraveler}/>
             </TouchableOpacity>
           )}
@@ -78,20 +82,36 @@ export default function SelectTraveler() {
           <TouchableOpacity 
           onPress={()=>router.push('/create-trip/select-dates')}
           style={{
-            padding: 15,
-            backgroundColor: Colors.PRIMARY,
+            marginTop: 10,
             borderRadius: 15,
-            marginTop: 15,
-          }}>
-            
-          
-            <Text style={{
-              textAlign: 'center',
-              color: Colors.WHITE,
-              fontFamily: 'outfit-medium',
-              fontSize: 18
-              
-            }}>Continue</Text>
+            overflow: 'hidden',
+            alignSelf: 'center',
+            width: 340,
+            height: 60,
+          }}
+          >  
+          <LinearGradient
+                      colors={Colors.GRADIENT_PRIMARY}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 15,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+            <Text 
+           style={{
+                color: Colors.WHITE,
+                textAlign: 'center',
+                fontFamily: 'outfit-medium',
+                fontSize: 20,
+              }}
+            >
+              Continue</Text>
+            </LinearGradient>
           </TouchableOpacity>
          
     </View>

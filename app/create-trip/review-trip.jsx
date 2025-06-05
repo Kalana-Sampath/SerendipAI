@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRouter } from 'expo-router';
 import moment from 'moment';
 import { useContext, useEffect } from 'react';
@@ -5,12 +6,13 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../constants/Colors';
 import { CreateTripContext } from '../../context/CreateTripContext';
 
+
 export default function ReviewTrip() {
 
     const navigation = useNavigation();
     const { tripData, setTripData } = useContext(CreateTripContext)
 
-    const router=useRouter();
+    const router = useRouter();
 
     useEffect(() => {
         navigation.setOptions({
@@ -69,7 +71,7 @@ export default function ReviewTrip() {
                     </View>
                 </View>
 
-                    {/* Date Selected Info */}
+                {/* Date Selected Info */}
                 <View style={{
                     marginTop: 25,
                     display: 'flex',
@@ -94,14 +96,14 @@ export default function ReviewTrip() {
                             fontFamily: 'outfit-medium',
                             fontSize: 20
                         }}>{moment(tripData?.startDate).format('DD MMM')
-                        +" To "+
-                        moment(tripData.endDate).format('DD MMM')+"  "}
-                        ({tripData?.totalNoOfDays} days)
+                            + " To " +
+                            moment(tripData.endDate).format('DD MMM') + "  "}
+                            ({tripData?.totalNoOfDays} days)
                         </Text>
                     </View>
                 </View>
 
-                    {/* Traveler Info */}
+                {/* Traveler Info */}
                 <View style={{
                     marginTop: 25,
                     display: 'flex',
@@ -131,7 +133,7 @@ export default function ReviewTrip() {
                     </View>
                 </View>
 
-                    {/* Budget Info */}
+                {/* Budget Info */}
                 <View style={{
                     marginTop: 25,
                     display: 'flex',
@@ -163,24 +165,42 @@ export default function ReviewTrip() {
 
             </View>
 
-            <TouchableOpacity 
-                      onPress={()=>router.replace('/create-trip/generate-trip')}
-                      style={{
-                        padding: 15,
-                        backgroundColor: Colors.PRIMARY,
+            <TouchableOpacity
+                onPress={() => router.replace('/create-trip/generate-trip')}
+                activeOpacity={0.7}
+                style={{
+                    marginTop: 10,
+                    borderRadius: 15,
+                    overflow: 'hidden',
+                    alignSelf: 'center',
+                    width: 340,
+                    height: 60,
+                }}
+            >
+                <LinearGradient
+                    colors={Colors.GRADIENT_PRIMARY}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{
+                        width: '100%',
+                        height: '100%',
                         borderRadius: 15,
-                        marginTop: 40,
-                      }}>
-                        
-                      
-                        <Text style={{
-                          textAlign: 'center',
-                          color: Colors.WHITE,
-                          fontFamily: 'outfit-medium',
-                          fontSize: 18
-                          
-                        }}>Build My Trip</Text>
-                      </TouchableOpacity>
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+
+                    <Text
+                        style={{
+                            color: Colors.WHITE,
+                            textAlign: 'center',
+                            fontFamily: 'outfit-medium',
+                            fontSize: 20,
+                        }}
+                    >
+                        Build My Trip</Text>
+                </LinearGradient>
+            </TouchableOpacity>
         </View>
     )
 }

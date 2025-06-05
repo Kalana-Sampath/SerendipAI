@@ -1,49 +1,49 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import StartNewTripCard from '../../components/MyTrips/StartNewTripCard';
+import UserTripsList from './../../components/MyTrips/UserTripList';
 import { Colors } from './../../constants/Colors';
 
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import UserTripList from '../../components/MyTrips/UserTripList';
 import { auth, db } from './../../configs/FirebaseConfig';
 
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 
 export default function MyTrip() {
-
   const [userTrips, setUserTrips] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const user = auth.currentUser;
-
-  const [loading, setLoding] = useState(false)
-  // const [tripList]
+  const router = useRouter();
 
   useEffect(() => {
-    user && GetMyTrips();
-  }, [user])
+    if (user) {
+      fetchUserTrips();
+    }
+  }, [user]);
 
-  const GetMyTrips = async () => {
-    setLoding(true)
-    setUserTrips([])
-    const q = query(collection(db, 'UserTrips'), where('userEmail', '==', user?.email))
-    const querySnapshot = await getDocs(q)
-
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      setUserTrips(prev => [...prev, doc.data()])
-    })
-    setLoding(false)
-  }
+  const fetchUserTrips = async () => {
+    setLoading(true);
+    setUserTrips([]);
+    try {
+      const q = query(collection(db, 'UserTrips'), where('userEmail', '==', user.email));
+      const querySnapshot = await getDocs(q);
+      const trips = [];
+      querySnapshot.forEach((doc) => {
+        trips.push(doc.data());
+      });
+      setUserTrips(trips);
+    } catch (error) {
+      console.error("Error fetching trips: ", error);
+    }
+    setLoading(false);
+  };
 
   return (
-    <View style={{
-      padding: 6,
-      paddingTop: 30,
-      backgroundColor: Colors.WHITE,
-      height: '100%'
-    }}>
+    <View style={{ padding: 6, paddingTop: 30, backgroundColor: Colors.WHITE, height: '100%' }}>
       <View
         style={{
           flexDirection: 'row',
@@ -83,31 +83,29 @@ export default function MyTrip() {
           </LinearGradient>
         </MaskedView>
 
-        {/* Gradient Icon */}
-        <MaskedView
-          maskElement={
-            <Ionicons name="add-circle" size={45} color="black" />
-          }
-        >
-          <LinearGradient
-            colors={Colors.GRADIENT_PRIMARY}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
+        {/* Plus Icon */}
+        <TouchableOpacity onPress={() => router.push('/create-trip/search-place')}>
+          <MaskedView
+            maskElement={<Ionicons name="add-circle" size={45} color="black" />}
           >
-            <Ionicons name="add-circle" size={50} color="transparent" />
-          </LinearGradient>
-        </MaskedView>
+            <LinearGradient
+              colors={Colors.GRADIENT_PRIMARY}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            >
+              <Ionicons name="add-circle" size={50} color="transparent" />
+            </LinearGradient>
+          </MaskedView>
+        </TouchableOpacity>
       </View>
 
+      {loading && <ActivityIndicator size="large" color={Colors.PRIMARY} />}
 
-      {loading && <ActivityIndicator size={'large'} color={Colors.PRIMARY} />}
-
-      {
-        userTrips?.length == 0 ?
-          <StartNewTripCard />
-          :
-          <UserTripList userTrips={userTrips} />
-      }
+      {!loading && (
+        userTrips.length === 0
+          ? <StartNewTripCard />
+          : <UserTripsList userTrips={userTrips} />
+      )}
     </View>
-  )
+  );
 }

@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRouter } from 'expo-router';
 import { useContext, useEffect, useState } from 'react';
 import { FlatList, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
@@ -6,13 +7,14 @@ import { Colors } from './../../constants/Colors';
 import { SelectBudgetOptions } from './../../constants/Options';
 import { CreateTripContext } from './../../context/CreateTripContext';
 
+
 export default function SelectBudget() {
 
     const navigation = useNavigation();
     const [selectedOption, setSelectedOption] = useState();
-    const {tripData,setTripData}=useContext(CreateTripContext)
+    const { tripData, setTripData } = useContext(CreateTripContext)
 
-    const router=useRouter()
+    const router = useRouter()
 
     useEffect(() => {
         navigation.setOptions({
@@ -22,17 +24,16 @@ export default function SelectBudget() {
         })
     }, [])
 
-    useEffect(()=>{
-        selectedOption&&setTripData({
+    useEffect(() => {
+        selectedOption && setTripData({
             ...tripData,
-            budget:selectedOption?.title
+            budget: selectedOption?.title
         })
-    },[selectedOption])
+    }, [selectedOption])
 
-    const onClickContinue=()=>{
-        if(!selectedOption)
-        {
-            ToastAndroid.show('Selected Your Budget',ToastAndroid.LONG)
+    const onClickContinue = () => {
+        if (!selectedOption) {
+            ToastAndroid.show('Selected Your Budget', ToastAndroid.LONG)
             return;
         }
 
@@ -70,7 +71,7 @@ export default function SelectBudget() {
                             <TouchableOpacity style={{
                                 marginVertical: 10
                             }}
-                                onPress={()=>setSelectedOption(item)}
+                                onPress={() => setSelectedOption(item)}
                             >
                                 <OptionCard option={item} selectedOption={selectedOption} />
 
@@ -80,24 +81,42 @@ export default function SelectBudget() {
                 </View>
             </View>
 
-            <TouchableOpacity 
-          onPress={()=>onClickContinue()}
-          style={{
-            padding: 15,
-            backgroundColor: Colors.PRIMARY,
-            borderRadius: 15,
-            marginTop: 15,
-          }}>
-            
-          
-            <Text style={{
-              textAlign: 'center',
-              color: Colors.WHITE,
-              fontFamily: 'outfit-medium',
-              fontSize: 18
-              
-            }}>Continue</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => onClickContinue()}
+                activeOpacity={0.7}
+                style={{
+                    marginTop: 10,
+                    borderRadius: 15,
+                    overflow: 'hidden',
+                    alignSelf: 'center',
+                    width: 340,
+                    height: 60,
+                }}
+            >
+                <LinearGradient
+                    colors={Colors.GRADIENT_PRIMARY}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 15,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+
+                    <Text
+                        style={{
+                            color: Colors.WHITE,
+                            textAlign: 'center',
+                            fontFamily: 'outfit-medium',
+                            fontSize: 20,
+                        }}
+                    >
+                        Continue</Text>
+                </LinearGradient>
+            </TouchableOpacity>
         </View>
     )
 }
