@@ -12,6 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
+import { LinearGradient } from 'expo-linear-gradient';
 import { auth } from './../../../configs/FirebaseConfig';
 
 
@@ -67,7 +68,8 @@ export default function SignUp() {
                 padding: 25,
                 paddingTop: 50,
                 backgroundColor: Colors.WHITE,
-                height: '100%'
+                height: '100%',
+                paddingBottom: '100%'
             }}>
 
                 {/* Back Button */}
@@ -127,36 +129,59 @@ export default function SignUp() {
                 <TouchableOpacity
                     onPress={OnCreateAccount}
                     disabled={loading}
+                    activeOpacity={0.7}
                     style={{
-                        padding: 20,
-                        backgroundColor: loading ? Colors.GRAY : Colors.PRIMARY,
-                        borderRadius: 15,
-                        marginTop: 50,
+                        // padding: 20,
+                        // backgroundColor: loading ? Colors.GRAY : Colors.PRIMARY,
+                       borderRadius: 15,
+                        marginTop: 40,
+                        width: 340,
+                        height: 60,
                         opacity: loading ? 0.7 : 1,
                     }}
                 >
-                    {loading ? (
-                        <ActivityIndicator color={Colors.WHITE} />
-                    ) : (
-                        <Text style={{ color: Colors.WHITE, textAlign: 'center' }}>
-                            Create Account
-                        </Text>
-                    )}
+                    <LinearGradient
+                        colors={Colors.GRADIENT_PRIMARY}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            flex: 1,
+                            borderRadius: 15,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        {loading ? (
+                            <ActivityIndicator color={Colors.WHITE} />
+                        ) : (
+                            <Text 
+                            style={{
+                                    color: Colors.WHITE,
+                                    fontFamily: 'outfit-medium',
+                                    fontSize: 19,
+                                }}
+                             >
+                                Create Account
+                            </Text>
+                        )}
+                    </LinearGradient>
                 </TouchableOpacity>
 
                 {/* Sign In Button */}
                 <TouchableOpacity
                     onPress={() => router.replace('auth/sign-in')}
                     style={{
-                        padding: 20,
+                        padding: 16,
                         backgroundColor: Colors.WHITE,
                         borderRadius: 15,
                         marginTop: 20,
-                        borderWidth: 1
+                        borderWidth: 1,
+                        borderColor: Colors.PRIMARY,
                     }}>
                     <Text style={{
                         color: Colors.PRIMARY,
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        fontSize: 18
                     }}>
                         Sign In
                     </Text>
